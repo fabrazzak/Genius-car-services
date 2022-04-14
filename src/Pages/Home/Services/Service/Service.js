@@ -1,8 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 const Service = ({ service }) => {
     const { name, price, img, description,id } = service;
+    const navigate=useNavigate();
+    const handleBooking=(id)=>{
+        navigate(`services/${id}`)
+
+    }
     return (
         
             <div className="col">
@@ -17,7 +23,7 @@ const Service = ({ service }) => {
                                 {description}
                                 </span>
                             </p>
-                    <button className='btn btn-primary btn-lg w-100'>Booking {name}</button>
+                    <button onClick={()=>handleBooking(id)} className='btn btn-primary btn-lg w-100'>Booking {name}</button>
                         </div>
                 </div>
             </div>

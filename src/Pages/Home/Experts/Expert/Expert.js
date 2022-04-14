@@ -4,11 +4,11 @@ const Expert = ({expert}) => {
   const   {name, id, img, description} = expert;
     return (
         <div>
-            <div class="col">
-                <div class="card">
-                    <img src={img} class="card-img-top" alt={expert + " " + id} />
-                    <div class="card-body">
-                        <h3 class="card-title">{name}</h3>
+            <div className="col">
+                <div className="card">
+                    <img src={img} className="card-img-top" alt={expert + " " + id} />
+                    <div className="card-body">
+                        <h3 className="card-title">{name}</h3>
                         
                         <p className="card-text">
                             <span>
