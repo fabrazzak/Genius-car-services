@@ -1,25 +1,57 @@
 import React, { useRef } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Spinner } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form'
-import { useNavigate } from 'react-router-dom';
+import { useSignInWithEmailAndPassword, useSignInWithFacebook, useSignInWithGithub, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useLocation, useNavigate } from 'react-router-dom';
+import auth from '../../firebase.init';
+import './login.css'
+
+import LoadingPages from '../LoadingPages/LoadingPages';
+import SocialLogin from '../SocialLogin/SocialLogin';
 
 
 const Login = () => {
     const emailRef=useRef('');
     const passwordRef=useRef('');
     
+    const navigate=useNavigate();
+    const location=useLocation();
+    const from=location.state?.from?.pathname || "/";
+    const [
+        signInWithEmailAndPassword,
+        user,loading,error
+    ] = useSignInWithEmailAndPassword(auth);
+
+    if( user){
+        navigate(from ,{replace: true});
+    }
+    
+    if(loading){
+        return <LoadingPages></LoadingPages>
+    }
+   
+    let errorMessage;
+    if(error ){
+        errorMessage=<div>
+            <p className='text-danger fs-5'>Error: {error?.message}</p>
+        </div>
+
+    }
+ 
     const handleFormLoginSubmit =event=>{
         event.preventDefault();
         const email=emailRef.current.value;
         const password=passwordRef.current.value;
-        console.log(email, password);
+        signInWithEmailAndPassword(email, password);
 
     }
-    const navigate=useNavigate();
+  
     const handleNavigateRegister=()=>{
         navigate('/signin');
 
     }
+    
+   
     return (
         <div className='container my-5 py-5 w-25 '>
             <Form onSubmit={handleFormLoginSubmit}>
@@ -31,13 +63,16 @@ const Login = () => {
                     <Form.Control className='py-3 fs-4' ref={passwordRef} type="password" placeholder="Password" required />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Check me out" />
+                    {errorMessage}
                 </Form.Group>
-                <Button variant="primary" type="submit" className='btn-lg mb-3'>
-                    Submit
+                <Button variant="primary" type="submit" className='btn-lg d-flex justify-content-center mx-auto  my-4'>
+                    Login 
                 </Button>
-                <p className='fs-5' role='button' tabIndex='0' onClick={handleNavigateRegister}>New to Genius car? <span className='text-danger'>Register now.</span></p>
+                <p className='fs-5' role='button' tabIndex='0' onClick={handleNavigateRegister}>New to Genius car? <span className='text-primary'>Register now.</span></p>
             </Form>
+            <SocialLogin></SocialLogin>
+            
+            
         </div>
     );
 };
