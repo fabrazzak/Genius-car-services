@@ -46,8 +46,12 @@ const Header = () => {
 
                     >
                         <Nav.Link as={Link} to="about" className='d-flex align-items-center'>About</Nav.Link>
-                        <Nav.Link as={Link} to="/add-service" className='d-flex align-items-center'>Add-service</Nav.Link>
-                        <Nav.Link as={Link} to="/manage" className='d-flex align-items-center'>Manage</Nav.Link>
+                        {
+                            user ? <><Nav.Link as={Link} to="/add-service" className='d-flex align-items-center'>Add-service</Nav.Link>
+                                <Nav.Link as={Link} to="/manage" className='d-flex align-items-center'>Manage</Nav.Link>
+                                <Nav.Link as={Link} to="/orders" className='d-flex align-items-center'>Orders</Nav.Link>
+                            </> : "" 
+                        }
                         {
                             user ? < Nav.Link as={Link} to="login" onClick={handleLogOut}>Log Out
                                 <img className=' ms-3 rounded rounded-circle' height="50px" src={user.photoURL} alt="" />

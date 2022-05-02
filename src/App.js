@@ -13,6 +13,7 @@ import CheackOut from './Pages/CheackOut/CheackOut';
 import RequireAuth from './Pages/RequireAuth/RequireAuth';
 import AddService from './Pages/AddService/AddService';
 import Manage from './Pages/Manage/Manage';
+import Orders from './Pages/Orders/Orders';
 
 ;
 
@@ -28,7 +29,7 @@ function App() {
         <Route path='about' element={<About></About>}></Route>
         <Route path='login' element={<Login></Login>}></Route>
         <Route path='signin' element={<Signin></Signin>}></Route>
-        <Route path='checkout' element={
+        <Route path='checkout/:serviceId' element={
           <RequireAuth>
             <CheackOut></CheackOut>
           </RequireAuth>
@@ -41,6 +42,11 @@ function App() {
         <Route path='manage' element={
           <RequireAuth>
             <Manage></Manage>
+          </RequireAuth>
+        }></Route>
+        <Route path='orders' element={
+          <RequireAuth>
+           <Orders></Orders>
           </RequireAuth>
         }></Route>
         <Route path='*' element={<FourOFour></FourOFour>}></Route>

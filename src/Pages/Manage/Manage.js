@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import useServices from '../../useServices';
 
 const Manage = () => {
-    const [services,setServices]=useServices();
+    const [services, setServices] = useServices();
 
-    const handleOnClickDelete = id =>{
+    const handleOnClickDelete = id => {
         const proceed = window.confirm("Are you sure ?");
         if (proceed) {
-            const url = `http://localhost:5000/service/${id}`;
+            const url = `https://blooming-stream-64870.herokuapp.com/service/${id}`;
             fetch(url, {
                 method: "DELETE"
             })
@@ -18,8 +18,8 @@ const Manage = () => {
 
 
         }
-        
-        
+
+
 
     }
     return (
@@ -27,13 +27,13 @@ const Manage = () => {
             <h1 className='text-center'>All services list</h1>
             <ol className='d-flex justify-content-center flex-column '>
                 {
-                    services.map(service =><li key={service._id}>
-                        <h5>Name: {service.name} 
-                        <button className='btn-danger rounded ms-3'onClick={()=>handleOnClickDelete(service._id)}> Delete</button></h5>
-                    </li> )
+                    services.map(service => <li key={service._id}>
+                        <h5>Name: {service.name}
+                            <button className='btn-danger rounded ms-3' onClick={() => handleOnClickDelete(service._id)}> Delete</button></h5>
+                    </li>)
                 }
             </ol>
-            
+
         </div>
     );
 };
